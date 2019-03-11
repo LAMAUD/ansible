@@ -1,0 +1,4 @@
+---
+
+env_name : ubuntu02
+ansible_ssh_user: cedric

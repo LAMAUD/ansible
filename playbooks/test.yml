@@ -1,0 +1,10 @@
+---
+
+
+- name: First Perso playbook
+  hosts: multi
+  tasks:
+
+    - name: Message
+      debug:
+        msg: "La variable env_name est {{env_name}}"
