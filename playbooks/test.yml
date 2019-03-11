@@ -3,8 +3,16 @@
 
 - name: First Perso playbook
   hosts: multi
+  vars_files:
+    - vars.yml
+  become: true
+  handlers:
+  - include: handlers/handlers.yml
+  pre_tasks:
+  - name: Message
+    debug:
+      msg: "La variable env_name est {{env_name}} et j'ai accès à la variable {{name_var}}"
   tasks:
-
-    - name: Message
-      debug:
-        msg: "La variable env_name est {{env_name}}"
+  - include: tasks/common.yml
+  roles:
+  - role: geerlingguy.docker
