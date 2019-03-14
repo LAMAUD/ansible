@@ -1,3 +1,12 @@
 ---
 
   name_var: vars.yml
+
+
+  git_package: git
+  git_package_state: present
+
+  zsh_package: zsh
+  zsh_package_state: present
+
+  firefox_folder: jun0ea1j.default

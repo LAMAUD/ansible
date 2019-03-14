@@ -1,2 +1,64 @@
 ---
-  
+
+# - name: Check that mistral exists
+#   stat:
+#     path: "/home/{{ansible_ssh_user}}/Projets/Actes_Sud/mistral"
+#   register: stat_result
+#
+# - name: Create the project directory.
+#   copy:
+#     src: /home/clamaud/Documents/Projets/Actes_Sud/mistral
+#     dest: "/home/{{ansible_ssh_user}}/Documents/Projets/Actes_Sud/"
+#     owner: "{{ansible_ssh_user}}"
+#     group: "{{ansible_ssh_user}}"
+#     mode: 1774
+#   when: stat_result.stat.exists == False
+
+# - name: Create the project directory Formation.
+#   synchronize:
+#     src: /home/clamaud/Documents/Formations
+#     dest: "/home/{{ansible_ssh_user}}/Documents/Formations"
+#     use_ssh_args: true
+#     verify_host: true
+#     recursive: yes
+#   delegate_to: "{{ inventory_hostname }}"
+
+- name: Check that firefox exists
+  stat:
+    path: "/home/{{ansible_ssh_user}}/.mozilla/firefox/{{firefox_folder}}"
+  register: stat_result
+
+- name: Copy Firefox parameter FROM host
+  copy:
+    src: "/home/clamaud/.mozilla/firefox/{{firefox_folder}}"
+    dest: "/home/{{ansible_ssh_user}}/.mozilla/firefox/{{firefox_folder}}"
+  when: stat_result.stat.exists == False
+
+
+- name: Install Git - Zsh.
+  package:
+    name: "{{ git_package }}"
+    state: "{{ git_package_state }}"
+  with_items:
+    - { package: "{{ git_package }}", state: "{{ git_package_state }}" }
+    - { package: "{{ zsh_package }}", state: "{{ zsh_package_state }}" }
+
+- name: Begin
+  command:
+    args:
+      argv:
+        - echo
+        - testing
+
+# - name: Begin
+#   command:
+#     args:
+#       chdir: "/home/{{ansible_ssh_user}}/"
+#       argv:
+#         - curl
+#         - fsSL
+#         - https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+#   register: installOZSH
+
+# - name: Finalize
+#   command:  -c "{{ installOZSH }}"
