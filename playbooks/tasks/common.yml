@@ -1,5 +1,16 @@
 ---
 
+- name: Install Git - Zsh.
+  package:
+    name: "{{ git_package }}"
+    state: "{{ git_package_state }}"
+  with_items:
+    - { package: "{{ git_package }}", state: "{{ git_package_state }}" }
+    - { package: "{{ zsh_package }}", state: "{{ zsh_package_state }}" }
+
+
+
+
 # - name: Check that mistral exists
 #   stat:
 #     path: "/home/{{ansible_ssh_user}}/Projets/Actes_Sud/mistral"
@@ -23,32 +34,20 @@
 #     recursive: yes
 #   delegate_to: "{{ inventory_hostname }}"
 
-- name: Check that firefox exists
-  stat:
-    path: "/home/{{ansible_ssh_user}}/.mozilla/firefox/{{firefox_folder}}"
-  register: stat_result
+# - name: Check that firefox exists
+#   stat:
+#     path: "/home/{{ansible_ssh_user}}/.mozilla/firefox/{{firefox_folder}}"
+#   register: stat_result
+#
+# - name: Copy Firefox parameter FROM host
+#   copy:
+#     src: "/home/clamaud/.mozilla/firefox/{{firefox_folder}}"
+#     dest: "/home/{{ansible_ssh_user}}/.mozilla/firefox/{{firefox_folder}}"
+#   when: stat_result.stat.exists == False
 
-- name: Copy Firefox parameter FROM host
-  copy:
-    src: "/home/clamaud/.mozilla/firefox/{{firefox_folder}}"
-    dest: "/home/{{ansible_ssh_user}}/.mozilla/firefox/{{firefox_folder}}"
-  when: stat_result.stat.exists == False
 
 
-- name: Install Git - Zsh.
-  package:
-    name: "{{ git_package }}"
-    state: "{{ git_package_state }}"
-  with_items:
-    - { package: "{{ git_package }}", state: "{{ git_package_state }}" }
-    - { package: "{{ zsh_package }}", state: "{{ zsh_package_state }}" }
 
-- name: Begin
-  command:
-    args:
-      argv:
-        - echo
-        - testing
 
 # - name: Begin
 #   command:

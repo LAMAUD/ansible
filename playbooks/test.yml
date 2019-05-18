@@ -2,7 +2,7 @@
 
 
 - name: First Perso playbook
-  hosts: ansible-ubuntu-02
+  hosts: ansible-local-01
   vars_files:
     - vars.yml
   become: true
@@ -12,7 +12,7 @@
   - name: Message
     debug:
       msg: "La variable env_name est {{env_name}} et j'ai accès à la variable {{name_var}} et {{ansible_ssh_user}}"
+  roles:
+    - geerlingguy.docker
   tasks:
   - include: tasks/common.yml
-  # roles:
-  # - role: geerlingguy.docker
