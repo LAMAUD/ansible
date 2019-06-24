@@ -1,0 +1,4 @@
+---
+
+env_name : digital02
+ansible_ssh_user: root

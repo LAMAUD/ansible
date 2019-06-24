@@ -7,6 +7,18 @@
   with_items:
     - { package: "{{ git_package }}", state: "{{ git_package_state }}" }
     - { package: "{{ zsh_package }}", state: "{{ zsh_package_state }}" }
+- name: Create a directory
+  file:
+    path: /home/clamaud
+    state: directory
+- name: Copy file with owner and permissions
+  copy:
+    src: /home/clamaud/Documents/Formations/ansible/ansible/docker-compose.yml
+    dest: /home/clamaud/docker-compose.yml
+    owner: root
+    group: root
+    mode: '0777'
+
 
 
 
