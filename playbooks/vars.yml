@@ -10,3 +10,6 @@
   zsh_package_state: present
 
   firefox_folder: jun0ea1j.default
+
+  env_name : ubuntu
+  ansible_ssh_user: root
